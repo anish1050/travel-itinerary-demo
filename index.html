@@ -16,8 +16,14 @@
         <video id="logovideo" src="images/logo.mp4" autoplay muted loop playsinline></video>
         <span>WanderCraft</span>
       </a>
-      <div class="navbar-links">
+      <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="navbar-links" id="navbar-links">
         <a href="#screenshots" class="nav-link">Screenshots</a>
+        <a href="#docs" class="nav-link">Architecture</a>
         <a href="#tech" class="nav-link">Tech Stack</a>
         <a href="https://github.com/anish1050/Travel-Itinerary-Planner" target="_blank" rel="noopener" class="nav-link nav-link--primary">
           GitHub
@@ -55,7 +61,7 @@
           <h3>Live Demo Temporarily Offline</h3>
           <p>
             The live demo is temporarily unavailable because the free hosting tier on Render has been exhausted.
-            You can still explore the full source code on GitHub and view the application screenshots below to see how WanderCraft works.
+            You can still explore the full source code on GitHub, view the application screenshots, and check out the system architecture flows below to see how WanderCraft works.
           </p>
         </div>
       </div>
@@ -313,6 +319,23 @@
       } else {
         navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
       }
+    });
+
+    // Mobile Hamburger Menu Toggler
+    const toggleBtn = document.getElementById('navbar-toggle');
+    const navLinks = document.getElementById('navbar-links');
+
+    toggleBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      toggleBtn.classList.toggle('active');
+    });
+
+    // Close mobile menu on clicking any navigation link
+    document.querySelectorAll('#navbar-links .nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        toggleBtn.classList.remove('active');
+      });
     });
 
     // Dynamic Live Demo check
