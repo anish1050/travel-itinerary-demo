@@ -469,3 +469,111 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Documentation Grid & Flowcharts ===== */
+.docs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.docs-card {
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: var(--shadow-card);
+}
+
+.docs-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.docs-card__sub {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+.flowchart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.flow-step {
+  flex: 1;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  transition: var(--transition);
+}
+
+.flow-step:hover {
+  border-color: var(--accent-dark);
+}
+
+.flow-step__icon {
+  width: 36px;
+  height: 36px;
+  background: var(--accent-dark);
+  color: var(--accent);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin: 0 auto 16px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.flow-step__label {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.flow-step p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-dark);
+  animation: pulseArrow 2s infinite ease-in-out;
+}
+
+@keyframes pulseArrow {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(5px); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .flowchart {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .flow-arrow {
+    transform: rotate(90deg);
+    animation: pulseArrowVertical 2s infinite ease-in-out;
+  }
+}
+
+@keyframes pulseArrowVertical {
+  0%, 100% { transform: rotate(90deg) translateX(0); opacity: 0.6; }
+  50% { transform: rotate(90deg) translateX(5px); opacity: 1; }
+}

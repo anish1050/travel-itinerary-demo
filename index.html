@@ -175,6 +175,86 @@
     </div>
   </section>
 
+  <!-- ===== Documentation & Architecture ===== -->
+  <section class="section" id="docs">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__label">Technical Reference</span>
+        <h2 class="section__title">Architecture & System Flow</h2>
+      </div>
+
+      <div class="docs-grid">
+        <!-- Flow 1: Itinerary Creation Flow -->
+        <div class="docs-card">
+          <h3>Itinerary Creation & Database Flow</h3>
+          <p class="docs-card__sub">How personalized travel itineraries are created and stored</p>
+          
+          <div class="flowchart">
+            <div class="flow-step">
+              <div class="flow-step__icon">1</div>
+              <div class="flow-step__label">Explore Destinations</div>
+              <p>User browses continents and selects a target country and city.</p>
+            </div>
+            
+            <div class="flow-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            
+            <div class="flow-step">
+              <div class="flow-step__icon">2</div>
+              <div class="flow-step__label">Customize Plan</div>
+              <p>User selects specific activities from the checklist and submits the form.</p>
+            </div>
+
+            <div class="flow-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-step__icon">3</div>
+              <div class="flow-step__label">Commit to DB</div>
+              <p>Servlet processes request and saves the itinerary in the MySQL database.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flow 2: Secure JWT Login Flow -->
+        <div class="docs-card">
+          <h3>Secure Authentication Flow</h3>
+          <p class="docs-card__sub">How users are verified and sessions are managed</p>
+          
+          <div class="flowchart">
+            <div class="flow-step">
+              <div class="flow-step__icon">1</div>
+              <div class="flow-step__label">Submit Credentials</div>
+              <p>User submits username and password from the login interface.</p>
+            </div>
+            
+            <div class="flow-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            
+            <div class="flow-step">
+              <div class="flow-step__icon">2</div>
+              <div class="flow-step__label">Verify BCrypt Hash</div>
+              <p>Servlet fetches password hash from MySQL and checks it against submission.</p>
+            </div>
+
+            <div class="flow-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-step__icon">3</div>
+              <div class="flow-step__label">Issue JWT Cookie</div>
+              <p>Successful match triggers JWT creation, stored in HTTP-only browser cookie.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Tech Stack ===== -->
   <section class="section" id="tech">
     <div class="container">
