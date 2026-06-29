@@ -68,7 +68,7 @@ img {
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 16px 0;
+  padding: 0;
   background-color: var(--bg-card);
   border-bottom: var(--border-width) solid var(--border-color);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -84,10 +84,18 @@ img {
 .navbar-brand {
   display: flex;
   align-items: center;
+  gap: 24px;
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: -0.01em;
   color: var(--text-primary);
+}
+
+#logovideo {
+  height: 100px;
+  width: auto;
+  border-radius: var(--radius-sm);
+  display: block;
 }
 
 .navbar-links {
