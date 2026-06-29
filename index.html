@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WanderCraft - Travel Itinerary Planner</title>
+  <meta name="description" content="WanderCraft is a full-stack travel itinerary planner built with Java, JSP, Servlets, and MySQL. Explore destinations across Asia and Europe and create personalized travel plans.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="navbar-brand">
+        WanderCraft
+      </a>
+      <div class="navbar-links">
+        <a href="#screenshots" class="nav-link">Screenshots</a>
+        <a href="#tech" class="nav-link">Tech Stack</a>
+        <a href="https://github.com/anish1050/Travel-Itinerary-Planner" target="_blank" rel="noopener" class="nav-link nav-link--primary">
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="hero">
+    <div class="hero__content">
+      <div class="hero__badge">
+        Full-Stack Java Web Application
+      </div>
+      <h1>Plan Your Dream Trip with WanderCraft</h1>
+      <p class="hero__desc">
+        A personalized travel itinerary planner that lets you discover amazing destinations across continents, create custom itineraries, and manage your travel plans.
+      </p>
+      <div class="hero__actions">
+        <a href="https://github.com/anish1050/Travel-Itinerary-Planner" target="_blank" rel="noopener" class="btn btn--primary">
+          View Source Code
+        </a>
+        <a href="#screenshots" class="btn btn--outline">
+          See Screenshots
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Notice Banner ===== -->
+  <section class="notice">
+    <div class="container">
+      <div class="notice__card">
+        <div class="notice__text">
+          <h3>Live Demo Temporarily Offline</h3>
+          <p>
+            The live demo is temporarily unavailable because the free hosting tier on Render has been exhausted.
+            You can still explore the full source code on GitHub and view the application screenshots below to see how WanderCraft works.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Screenshots ===== -->
+  <section class="section" id="screenshots">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__label">App Preview</span>
+        <h2 class="section__title">Application Screenshots</h2>
+      </div>
+
+      <div class="screenshots-grid">
+        <!-- Screenshot 1 — Homepage -->
+        <div class="screenshot-card">
+          <img
+            src="images/HomePage.png"
+            alt="WanderCraft Homepage showing hero section and destination gallery"
+            class="screenshot-card__img"
+          >
+          <div class="screenshot-card__body">
+            <h3 class="screenshot-card__title">Homepage</h3>
+            <p class="screenshot-card__desc">Welcome page containing the hero details, travel video, destination grids, and essential travel tips.</p>
+          </div>
+        </div>
+
+        <!-- Screenshot 2 — Login -->
+        <div class="screenshot-card">
+          <img
+            src="images/LoginPage.png"
+            alt="WanderCraft Login page with username and password fields"
+            class="screenshot-card__img"
+          >
+          <div class="screenshot-card__body">
+            <h3 class="screenshot-card__title">Login Page</h3>
+            <p class="screenshot-card__desc">Clean user authentication screen supporting username, password, recovery, and sign-up navigation.</p>
+          </div>
+        </div>
+
+        <!-- Screenshot 3 — Dashboard / Itineraries -->
+        <div class="screenshot-card">
+          <img
+            src="images/DashBoard.png"
+            alt="WanderCraft Dashboard showing saved travel itineraries"
+            class="screenshot-card__img"
+          >
+          <div class="screenshot-card__body">
+            <h3 class="screenshot-card__title">User Dashboard</h3>
+            <p class="screenshot-card__desc">Personal profile dashboard where users can view, update, delete, and add new itineraries.</p>
+          </div>
+        </div>
+
+        <!-- Screenshot 4 — Itinerary Planner -->
+        <div class="screenshot-card">
+          <img
+            src="images/Itinerary Planner.png"
+            alt="WanderCraft Itinerary Planner showing continent selection cards"
+            class="screenshot-card__img"
+          >
+          <div class="screenshot-card__body">
+            <h3 class="screenshot-card__title">Itinerary Planner</h3>
+            <p class="screenshot-card__desc">Destination wizard that helps users navigate different continents and countries to plan their trips.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__label">Capabilities</span>
+        <h2 class="section__title">Key Features</h2>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-item__text">
+            <h4>Secure Authentication</h4>
+            <p>User registration and login features integrated with BCrypt password hashing and custom JWT cookie-based session filters.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item__text">
+            <h4>Destination Explorer</h4>
+            <p>Interactive pages containing curated travel plans, local activities, and maps across popular countries in Asia and Europe.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item__text">
+            <h4>Full CRUD Management</h4>
+            <p>Add new travel plans, edit activities, update destinations, or delete previous itineraries dynamically from your profile.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item__text">
+            <h4>Responsive Grid Layouts</h4>
+            <p>Adaptable CSS Grid structure designed to work smoothly on mobile displays, tablets, and desktop setups.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item__text">
+            <h4>Password Recovery Flow</h4>
+            <p>Account verification using security questions and answers to allow seamless password updates when forgotten.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-item__text">
+            <h4>Dockerized Architecture</h4>
+            <p>Pre-configured Tomcat Docker container structure ensuring quick server initialization and hosting consistency.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Tech Stack ===== -->
+  <section class="section" id="tech">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__label">Built With</span>
+        <h2 class="section__title">Technology Stack</h2>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <h3 class="tech-card__name">Java & Servlets</h3>
+          <p class="tech-card__desc">Controller layer handling business operations, authentication, and HTTP request routing.</p>
+        </div>
+        <div class="tech-card">
+          <h3 class="tech-card__name">JSP & JSTL</h3>
+          <p class="tech-card__desc">Server-side rendering templates utilizing standard JSTL core tags for dynamic content presentation.</p>
+        </div>
+        <div class="tech-card">
+          <h3 class="tech-card__name">MySQL Database</h3>
+          <p class="tech-card__desc">Relational storage containing user details, security profiles, and custom itineraries.</p>
+        </div>
+        <div class="tech-card">
+          <h3 class="tech-card__name">Bootstrap 5</h3>
+          <p class="tech-card__desc">Styling framework powering the original UI components, forms, and layout responsive attributes.</p>
+        </div>
+        <div class="tech-card">
+          <h3 class="tech-card__name">Maven Build Tool</h3>
+          <p class="tech-card__desc">Dependency handling and compilation framework packaging target classes into deployment WAR files.</p>
+        </div>
+        <div class="tech-card">
+          <h3 class="tech-card__name">Docker Containers</h3>
+          <p class="tech-card__desc">Tomcat environment wrapper ensuring quick setups across development and target cloud hosts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <p>Project maintained by <a href="https://github.com/anish1050" target="_blank" rel="noopener">Anish</a></p>
+      <div class="footer__links">
+        <a href="https://github.com/anish1050/Travel-Itinerary-Planner" target="_blank" rel="noopener">GitHub Repository</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#tech">Tech Stack</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Navbar Behavior Script ===== -->
+  <script>
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 20) {
+        navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+      } else {
+        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+      }
+    });
+  </script>
+
+</body>
+</html>
