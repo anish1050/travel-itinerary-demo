@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Defer Google Analytics for better performance -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-M7XP8Z071T', {
+      'version': 'fallback_demo'
+    });
+
+    // Load GA script after page load
+    window.addEventListener('load', function () {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-M7XP8Z071T';
+      document.head.appendChild(script);
+    });
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WanderCraft - Travel Itinerary Planner</title>
   <meta name="description" content="WanderCraft is a full-stack travel itinerary planner built with Java, JSP, Servlets, and MySQL. Explore destinations across Asia and Europe and create personalized travel plans.">
   <link rel="stylesheet" href="style.css">
+  <!-- ===== Amplitude Analytics & Session Replay ===== -->
+  <script src="https://cdn.amplitude.com/script/d36d22f09d7d68cf54baa6df63454945.js"></script>
+  <script>
+    if (window.amplitude) {
+      window.amplitude.init('d36d22f09d7d68cf54baa6df63454945', {
+        fetchRemoteConfig: true,
+        autocapture: {
+          attribution: true,
+          pageViews: true,
+          sessions: true,
+          elementInteractions: true
+        }
+      });
+    }
+  </script>
 </head>
 <body>
 
@@ -67,6 +99,24 @@
       </div>
     </div>
   </section>
+
+  <!-- ===== Personalization Modal ===== -->
+  <div class="modal" id="personalize-modal">
+    <div class="modal__overlay" id="modal-overlay"></div>
+    <div class="modal__card">
+      <button class="modal__close" id="modal-close-btn">&times;</button>
+      <div class="modal__header">
+        <span class="modal__badge">Personalize Preview</span>
+        <h3>Welcome!</h3>
+        <p>Who's reviewing the demo today? Drop your name or company to customize the experience!</p>
+      </div>
+      <div class="modal__form">
+        <input type="text" id="modal-visitor-name" placeholder="Your name or company..." class="modal__input">
+        <input type="email" id="modal-visitor-email" placeholder="Email address (optional)" class="modal__input">
+        <button id="modal-btn-personalize" class="modal__btn">Let's Go</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ===== Screenshots ===== -->
   <section class="section" id="screenshots">
@@ -371,6 +421,196 @@
     function handleOffline() {
       demoBtn.style.display = 'none';
       offlineNotice.style.display = 'block';
+    }
+
+
+
+    // ===== Personalization Logic (Modal & Floating Badge) =====
+    const personalizeModal = document.getElementById('personalize-modal');
+    const modalInput = document.getElementById('modal-visitor-name');
+    const modalEmailInput = document.getElementById('modal-visitor-email');
+    const modalBtn = document.getElementById('modal-btn-personalize');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalOverlay = document.getElementById('modal-overlay');
+
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    function showModal() {
+      if (!personalizeModal) return;
+      // Delay showing the modal for a premium transition effect
+      setTimeout(() => {
+        const savedName = localStorage.getItem('visitor_name');
+        const skipped = sessionStorage.getItem('visitor_skipped');
+        if (!savedName && !skipped) {
+          personalizeModal.classList.add('active');
+        }
+      }, 800);
+    }
+
+    function hideModal() {
+      if (personalizeModal) {
+        personalizeModal.classList.remove('active');
+      }
+    }
+
+    function identifyUser(name, email) {
+      if (!name) return;
+      localStorage.setItem('visitor_name', name);
+      if (email) {
+        localStorage.setItem('visitor_email', email);
+      } else {
+        localStorage.removeItem('visitor_email');
+      }
+
+      if (window.amplitude) {
+        try {
+          window.amplitude.setUserId(name);
+          const identifyEvent = new window.amplitude.Identify();
+          identifyEvent.set('name', name);
+          if (email) {
+            identifyEvent.set('email', email);
+          }
+          window.amplitude.identify(identifyEvent);
+          window.amplitude.track('Identify Visitor', { 
+            visitorName: name, 
+            visitorEmail: email || 'not provided',
+            project: 'WanderCraft Demo',
+            version: 'fallback_demo'
+          });
+        } catch (e) {
+          console.error('[Amplitude] Identify failed:', e);
+        }
+      }
+      
+      hideModal();
+      showFloatingBadge(name);
+    }
+
+    function resetIdentity() {
+      localStorage.removeItem('visitor_name');
+      localStorage.removeItem('visitor_email');
+      sessionStorage.removeItem('visitor_skipped');
+      if (window.amplitude) {
+        try {
+          window.amplitude.setUserId(null);
+          window.amplitude.track('Reset Visitor Identity', { project: 'WanderCraft Demo', version: 'fallback_demo' });
+        } catch (e) {
+          console.error('[Amplitude] Reset identity failed:', e);
+        }
+      }
+      
+      removeFloatingBadge();
+      showModal();
+    }
+
+    function showFloatingBadge(name) {
+      removeFloatingBadge(); // Clean up if already exists
+      
+      const badge = document.createElement('div');
+      badge.className = 'visitor-badge';
+      badge.id = 'visitor-badge-widget';
+      badge.innerHTML = `
+        <span>👋 Welcome, <strong>${name}</strong></span>
+        <button class="visitor-badge__reset" id="badge-reset-btn">Reset</button>
+      `;
+      document.body.appendChild(badge);
+
+      const resetBtn = document.getElementById('badge-reset-btn');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', resetIdentity);
+      }
+    }
+
+    // Modal Events
+    if (modalBtn && modalInput) {
+      modalBtn.addEventListener('click', () => {
+        const name = modalInput.value.trim();
+        const email = modalEmailInput ? modalEmailInput.value.trim() : '';
+        if (name) identifyUser(name, email);
+      });
+      
+      const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          const name = modalInput.value.trim();
+          const email = modalEmailInput ? modalEmailInput.value.trim() : '';
+          if (name) identifyUser(name, email);
+        }
+      };
+      
+      modalInput.addEventListener('keypress', handleKeyPress);
+      if (modalEmailInput) {
+        modalEmailInput.addEventListener('keypress', handleKeyPress);
+      }
+    }
+
+    function removeFloatingBadge() {
+      const badge = document.getElementById('visitor-badge-widget');
+      if (badge) {
+        badge.remove();
+      }
+    }
+
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', () => {
+        hideModal();
+        sessionStorage.setItem('visitor_skipped', 'true');
+      });
+    }
+    if (modalOverlay) {
+      modalOverlay.addEventListener('click', () => {
+        hideModal();
+        sessionStorage.setItem('visitor_skipped', 'true');
+      });
+    }
+
+    // Initialize Identity Flow
+    const urlName = getQueryParam('name') || getQueryParam('visitor') || getQueryParam('company');
+    const urlEmail = getQueryParam('email');
+    if (urlName) {
+      identifyUser(urlName, urlEmail || '');
+    } else {
+      const savedName = localStorage.getItem('visitor_name');
+      const savedEmail = localStorage.getItem('visitor_email') || '';
+      if (savedName) {
+        identifyUser(savedName, savedEmail);
+      } else {
+        showModal();
+      }
+    }
+
+    // Amplitude custom tracking events
+    try {
+      if (window.amplitude && typeof window.amplitude.track === 'function') {
+        window.amplitude.track('Page View', { project: 'WanderCraft Demo', version: 'fallback_demo' });
+
+        // Track Live Demo Click
+        if (demoBtn) {
+          demoBtn.addEventListener('click', () => {
+            window.amplitude.track('Click Live Demo', { project: 'WanderCraft Demo', version: 'fallback_demo' });
+          });
+        }
+
+        // Track GitHub Source Click
+        const githubBtn = document.querySelector('.btn--outline');
+        if (githubBtn) {
+          githubBtn.addEventListener('click', () => {
+            window.amplitude.track('Click GitHub Source', { project: 'WanderCraft Demo', version: 'fallback_demo' });
+          });
+        }
+
+        // Track Architecture interactions
+        document.querySelectorAll('.arch-node').forEach(node => {
+          node.addEventListener('click', () => {
+            const title = node.querySelector('h4')?.textContent || 'Node Click';
+            window.amplitude.track('View Architecture Detail', { flow: title, project: 'WanderCraft Demo', version: 'fallback_demo' });
+          });
+        });
+      }
+    } catch (e) {
+      console.warn('[Amplitude] Tracking setup failed:', e);
     }
   </script>
 
