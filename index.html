@@ -467,7 +467,8 @@
 
       if (window.amplitude) {
         try {
-          window.amplitude.setUserId(name);
+          // Prefix to satisfy Amplitude's 5-character minimum user_id length constraint
+          window.amplitude.setUserId('visitor_' + name);
           const identifyEvent = new window.amplitude.Identify();
           identifyEvent.set('name', name);
           if (email) {
